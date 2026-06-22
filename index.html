@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Sora:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Fraunces:opsz,wght@9..144,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260622-mobile-line">
+<link rel="stylesheet" href="styles.css?v=20260622-static-team-centered">
 </head>
 <body>
 
@@ -2085,14 +2085,12 @@ if(list){
   const slot=ul.parentElement;
   const words=['growth','marketing','research','content','operations','sales'];
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){ul.innerHTML=`<li>${words[0]}<span class="mobile-team-inline"> team.</span></li>`;slot.style.width='auto';return;}
-  const mobileMQ=matchMedia('(max-width: 680px)');
+  if(reduce){ul.innerHTML=`<li>${words[0]}</li>`;slot.style.width='auto';return;}
   const seq=[...words,words[0]];
-  ul.innerHTML=seq.map(w=>`<li>${w}<span class="mobile-team-inline"> team.</span></li>`).join('');
+  ul.innerHTML=seq.map(w=>`<li>${w}</li>`).join('');
   const items=ul.querySelectorAll('li');
   let widths=[...items].map(li=>li.getBoundingClientRect().width);
-  let maxWidth=Math.max(...widths);
-  const setSlotWidth=(idx)=>{slot.style.width=(mobileMQ.matches?maxWidth:widths[idx])+'px';};
+  const setSlotWidth=(idx)=>{slot.style.width=widths[idx]+'px';};
   setSlotWidth(0);
   let i=0;
   function step(){
@@ -2105,12 +2103,10 @@ if(list){
   setInterval(step,2600);
   const remeasure=()=>{
     widths=[...items].map(li=>li.getBoundingClientRect().width);
-    maxWidth=Math.max(...widths);
     setSlotWidth(i);
   };
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(remeasure);
   addEventListener('resize',remeasure);
-  if(mobileMQ.addEventListener)mobileMQ.addEventListener('change',remeasure);
 })();
 
 /* PROACTIVE-FIT (canonical, responsive) — do not duplicate */
