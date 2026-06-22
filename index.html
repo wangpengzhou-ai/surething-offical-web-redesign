@@ -51,7 +51,7 @@
         <span class="ph-mark">P</span>
         <span class="ph-rank"><b>#2</b> Product of the Day</span>
       </a>
-      <h1><span class="line1">Your AI <span class="rot-wrap"><span class="slot"><ul id="rollList"></ul></span> team.</span></span><br><em>Work done before you ask</em></h1>
+      <h1><span class="line1">Your AI <span class="rot-wrap"><span class="slot"><ul id="rollList"></ul></span><span class="team-word"> team.</span></span></span><br><em>Work done before you ask</em></h1>
       <p class="sub">SureThing connects to your tools, remembers your business, and delivers reports, emails, posts, PRs, and dashboards for you to review.</p>
       <div class="hero-cta">
         <a href="#" class="btn btn-dark">Get started for free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -1858,7 +1858,7 @@ new Chart(document.getElementById(&#x27;actChart&#x27;), {
   <div class="wrap">
     <div class="sec-head center reveal diff-head">
       <span class="kicker"><span class="ln"></span>Why not the tools you have<span class="ln"></span></span>
-      <h2 class="diff-h"><em class="notw">NOT</em> another chatbot.<br><em class="notw">NOT</em> another general agent.</h2>
+      <h2 class="diff-h"><em class="notw">NOT</em> another chatbot.<br><span class="diff-wide"><em class="notw">NOT</em> another general agent.</span><span class="diff-mobile"><em class="notw">NOT</em> another agent.</span></h2>
       <p class="lead diff-lead">SureThing is built for ongoing work: context, execution, reporting, and approval in one place.</p>
     </div>
     <div class="cmp-wrap reveal">
@@ -2085,24 +2085,32 @@ if(list){
   const slot=ul.parentElement;
   const words=['growth','marketing','research','content','operations','sales'];
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){ul.innerHTML=`<li>${words[0]}</li>`;slot.style.width='auto';return;}
+  if(reduce){ul.innerHTML=`<li>${words[0]}<span class="mobile-team"> team.</span></li>`;slot.style.width='auto';return;}
+  const mobileMQ=matchMedia('(max-width: 680px)');
   const seq=[...words,words[0]];
-  ul.innerHTML=seq.map(w=>`<li>${w}</li>`).join('');
+  ul.innerHTML=seq.map(w=>`<li>${w}<span class="mobile-team"> team.</span></li>`).join('');
   const items=ul.querySelectorAll('li');
   let widths=[...items].map(li=>li.getBoundingClientRect().width);
-  slot.style.width=widths[0]+'px';
+  let maxWidth=Math.max(...widths);
+  const setSlotWidth=(idx)=>{slot.style.width=(mobileMQ.matches?maxWidth:widths[idx])+'px';};
+  setSlotWidth(0);
   let i=0;
   function step(){
     i++;
     ul.style.transition='transform .6s cubic-bezier(.32,.72,0,1)';
     ul.style.transform=`translateY(-${i*1.18}em)`;
-    slot.style.width=widths[i]+'px';
-    if(i===words.length){setTimeout(()=>{ul.style.transition='none';ul.style.transform='translateY(0)';i=0;slot.style.width=widths[0]+'px';},620);}
+    setSlotWidth(i);
+    if(i===words.length){setTimeout(()=>{ul.style.transition='none';ul.style.transform='translateY(0)';i=0;setSlotWidth(0);},620);}
   }
   setInterval(step,2600);
-  const remeasure=()=>{widths=[...items].map(li=>li.getBoundingClientRect().width);slot.style.width=widths[i]+'px';};
+  const remeasure=()=>{
+    widths=[...items].map(li=>li.getBoundingClientRect().width);
+    maxWidth=Math.max(...widths);
+    setSlotWidth(i);
+  };
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(remeasure);
   addEventListener('resize',remeasure);
+  if(mobileMQ.addEventListener)mobileMQ.addEventListener('change',remeasure);
 })();
 
 /* PROACTIVE-FIT (canonical, responsive) — do not duplicate */
