@@ -119,12 +119,13 @@ a{color:inherit;text-decoration:none}
 .hero h1 em{font-family:'DM Serif Display',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;
   color:#51885a}
 /* rotating word slot */
-.rot-wrap{white-space:nowrap}
+.rot-wrap{display:inline-flex;align-items:baseline;gap:.18em;white-space:nowrap}
 .line1{white-space:nowrap}
 .slot{display:inline-flex;flex-direction:column;align-items:flex-start;height:1.18em;overflow:hidden;vertical-align:top;
   margin:-.06em 0;transition:width .6s var(--ease)}
 .slot ul{margin:0;padding:0;list-style:none;align-items:flex-start;transition:transform .6s var(--ease)}
 .slot li{height:1.18em;line-height:1.18em;width:max-content;white-space:nowrap}
+.team-word{display:inline}
 @media(prefers-reduced-motion:reduce){.slot,.slot ul{transition:none}}
 .hero .sub{font-size:16px;color:#4d5a71;margin-top:22px;max-width:600px;line-height:1.6;font-weight:400}
 .hero .sub b{font-weight:600;color:var(--ink)}
@@ -638,8 +639,8 @@ footer{border-top:1px solid var(--line-soft);padding:64px 0 44px;background:var(
   .hero h1 .line1{display:block;white-space:normal}
   .hero h1 br{display:none}
   .hero h1 .rot-wrap{display:flex;align-items:baseline;justify-content:center;gap:.18em;white-space:nowrap}
-  .hero h1 .slot{align-items:center;transition:none}
-  .hero h1 .slot li{width:100%;text-align:center}
+  .hero h1 .slot{align-items:flex-end;transition:none}
+  .hero h1 .slot li{width:100%;text-align:right}
   .hero h1 em{display:block;max-width:8.6em;margin:24px auto 0;text-wrap:balance}
   .hero .sub{font-size:15px;max-width:34ch}
   .sec{padding:72px 0}
